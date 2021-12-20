@@ -1,6 +1,6 @@
 import { Link, LinksFunction } from 'remix';
 
-import styles from './index.css';
+import styles from '../styles/index.css';
 
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: styles }];

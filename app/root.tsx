@@ -1,9 +1,10 @@
-import { Links, LinksFunction, LiveReload, Outlet } from 'remix';
+import { Links, LinksFunction, LiveReload, Outlet, Scripts, useCatch } from 'remix';
 
 import globalStylesUrl from './styles/global.css';
 import globalMediumStylesUrl from './styles/global-medium.css';
 import globalLargeStylesUrl from './styles/global-large.css';
 
+// Remix
 export const links: LinksFunction = () => {
   return [
     {
@@ -23,6 +24,34 @@ export const links: LinksFunction = () => {
   ];
 };
 
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  return (
+    <Document title={`${caught.status} ${caught.statusText}`}>
+      <div className="error-container">
+        <h1>
+          {caught.status} {caught.statusText}
+        </h1>
+      </div>
+    </Document>
+  );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
+
+  return (
+    <Document title="Uh-oh!">
+      <div className="error-container">
+        <h1>App Error</h1>
+        <pre>{error.message}</pre>
+      </div>
+    </Document>
+  );
+}
+
+// React
 function Document({
   children,
   title = `Remix: So great, it's funny!`,
@@ -41,6 +70,7 @@ function Document({
         {children}
 
         {process.env.NODE_ENV === 'development' ? <LiveReload /> : null}
+        <Scripts />
       </body>
     </html>
   );
@@ -50,17 +80,6 @@ export default function App() {
   return (
     <Document>
       <Outlet />
-    </Document>
-  );
-}
-
-export function ErrorBoundary({ error }: { error: Error }) {
-  return (
-    <Document title="Uh-oh!">
-      <div className="error-container">
-        <h1>App Error</h1>
-        <pre>{error.message}</pre>
-      </div>
     </Document>
   );
 }

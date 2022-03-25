@@ -1,5 +1,6 @@
 import {
   ActionFunction,
+  Form,
   Link,
   LoaderFunction,
   redirect,
@@ -112,13 +113,13 @@ const JokeId = () => {
       <Link to=".">{data.joke.name} Permalink</Link>
 
       {data.isOwner ? (
-        <form method="post">
+        <Form method="post">
           <input type="hidden" name="_method" value="delete" />
 
           <button type="submit" className="button">
             Delete
           </button>
-        </form>
+        </Form>
       ) : null}
     </div>
   );

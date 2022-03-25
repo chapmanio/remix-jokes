@@ -1,4 +1,4 @@
-import { json, Link, useActionData, useSearchParams } from 'remix';
+import { Form, json, Link, useActionData, useSearchParams } from 'remix';
 import type { ActionFunction, LinksFunction } from 'remix';
 
 import { db } from '~/utils/db.server';
@@ -124,7 +124,7 @@ export default function Login() {
       <div className="content" data-light="">
         <h1>Login</h1>
 
-        <form method="post">
+        <Form method="post">
           <input
             type="hidden"
             name="redirectTo"
@@ -203,7 +203,7 @@ export default function Login() {
           <button type="submit" className="button">
             Submit
           </button>
-        </form>
+        </Form>
       </div>
       <div className="links">
         <ul>

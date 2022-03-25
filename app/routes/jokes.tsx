@@ -1,4 +1,4 @@
-import { json, Link, LinksFunction, LoaderFunction, Outlet, useLoaderData } from 'remix';
+import { Form, json, Link, LinksFunction, LoaderFunction, Outlet, useLoaderData } from 'remix';
 
 import { db } from '~/utils/db.server';
 import { getUser } from '~/utils/session.server';
@@ -58,11 +58,11 @@ const Jokes = () => {
           {data.user ? (
             <div className="user-info">
               <span>{`Hi ${data.user.username}`}</span>
-              <form action="/logout" method="post">
+              <Form action="/logout" method="post">
                 <button type="submit" className="button">
                   Logout
                 </button>
-              </form>
+              </Form>
             </div>
           ) : (
             <Link to="/login">Login</Link>
@@ -77,7 +77,9 @@ const Jokes = () => {
             <ul>
               {data.jokeListItems.map((joke) => (
                 <li key={joke.id}>
-                  <Link to={joke.id}>{joke.name}</Link>
+                  <Link to={joke.id} prefetch="intent">
+                    {joke.name}
+                  </Link>
                 </li>
               ))}
             </ul>

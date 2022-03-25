@@ -1,5 +1,6 @@
 import {
   ActionFunction,
+  Form,
   json,
   Link,
   LoaderFunction,
@@ -116,7 +117,7 @@ const JokesNew = () => {
     <div>
       <p>Add your own hilarious joke</p>
 
-      <form method="post">
+      <Form method="post">
         <div>
           <label>
             Name:{' '}
@@ -157,7 +158,7 @@ const JokesNew = () => {
             Add
           </button>
         </div>
-      </form>
+      </Form>
     </div>
   );
 };

@@ -23,6 +23,10 @@ export let loader: LoaderFunction = async () => {
   return data;
 };
 
+export function ErrorBoundary() {
+  return <div className="error-container">I did a whoopsies.</div>;
+}
+
 // React
 const JokesIndex = () => {
   const data = useLoaderData<LoaderData>();

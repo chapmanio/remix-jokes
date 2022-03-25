@@ -2,10 +2,12 @@ import { Link, LinksFunction } from 'remix';
 
 import styles from '../styles/index.css';
 
+// Remix
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
 
+// React
 const Index = () => {
   return (
     <div className="container">

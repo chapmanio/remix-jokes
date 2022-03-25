@@ -1,6 +1,7 @@
 import { ActionFunction, json, redirect, useActionData } from 'remix';
 
 import { db } from '~/utils/db.server';
+import { requireUserId } from '~/utils/session.server';
 
 // Types
 type ActionData = {
@@ -32,6 +33,7 @@ const validateJokeName = (name: string) => {
 
 // Remix
 export const action: ActionFunction = async ({ request }) => {
+  const userId = await requireUserId(request);
   const form = await request.formData();
 
   const name = form.get('name');
@@ -59,10 +61,19 @@ export const action: ActionFunction = async ({ request }) => {
     return badRequest({ fieldErrors, fields });
   }
 
-  const joke = await db.joke.create({ data: fields });
+  const joke = await db.joke.create({
+    data: {
+      ...fields,
+      jokesterId: userId,
+    },
+  });
 
   return redirect(`/jokes/${joke.id}`);
 };
+
+export function ErrorBoundary() {
+  return <div className="error-container">Something unexpected went wrong. Sorry about that.</div>;
+}
 
 // React
 const JokesNew = () => {
